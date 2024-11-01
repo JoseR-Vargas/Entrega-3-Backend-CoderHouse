@@ -1,0 +1,60 @@
+<h1>Carrito de Compras</h1>
+
+<div class="cart-list">
+    {{#each products}}
+        <div class="cart-item">
+            <h2>{{product.nombre}}</h2>
+            <p>Precio: ${{product.precio}}</p>
+            <p>Cantidad: {{cantidad}}</p>
+            <button onclick="removeFromCart('{{product._id}}')">Eliminar del Carrito</button>
+        </div>
+    {{/each}}
+</div>
+
+<!-- Total del carrito -->
+<p>Total de productos: {{products.length}}</p>
+
+<!-- Botón para vaciar el carrito -->
+<button onclick="emptyCart()">Vaciar Carrito</button>
+
+<script>
+    const cartId = '{{cartId}}';
+
+    // Función para eliminar un producto del carrito
+    async function removeFromCart(productId) {
+        try {
+            const response = await fetch(`/api/carts/${cartId}/products/${productId}`, {
+                method: 'DELETE',
+            });
+
+            const result = await response.json();
+            if (result.status === 'success') {
+                alert('Producto eliminado del carrito');
+                location.reload(); // Recargar la página para actualizar la lista de productos
+            } else {
+                alert('Error al eliminar el producto');
+            }
+        } catch (error) {
+            console.error('Error al eliminar del carrito:', error);
+        }
+    }
+
+    // Función para vaciar el carrito
+    async function emptyCart() {
+        try {
+            const response = await fetch(`/api/carts/${cartId}`, {
+                method: 'DELETE',
+            });
+
+            const result = await response.json();
+            if (result.status === 'success') {
+                alert('Carrito vaciado');
+                location.reload();
+            } else {
+                alert('Error al vaciar el carrito');
+            }
+        } catch (error) {
+            console.error('Error al vaciar el carrito:', error);
+        }
+    }
+</script>
