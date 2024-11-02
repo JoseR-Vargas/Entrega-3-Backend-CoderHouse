@@ -3,11 +3,9 @@ import { Product } from '../models/product.js';
 
 const router = express.Router();
 
-// GET /api/products con filtros, paginación y ordenamiento
 router.get('/', async (req, res) => {
     const { limit = 10, page = 1, sort, query } = req.query;
 
-    // Construcción del filtro
     const filter = {};
     if (query) {
         if (query === 'disponible') {
@@ -17,7 +15,6 @@ router.get('/', async (req, res) => {
         }
     }
 
-    // Construcción de las opciones de paginación
     const options = {
         limit: parseInt(limit),
         page: parseInt(page),

@@ -4,7 +4,6 @@ import { Product } from '../models/product.js';
 
 const router = express.Router();
 
-// DELETE /api/carts/:cid/products/:pid
 router.delete('/:cid/products/:pid', async (req, res) => {
     const { cid, pid } = req.params;
     try {
@@ -19,7 +18,6 @@ router.delete('/:cid/products/:pid', async (req, res) => {
     }
 });
 
-// PUT /api/carts/:cid
 router.put('/:cid', async (req, res) => {
     const { cid } = req.params;
     const { products } = req.body;
@@ -31,7 +29,6 @@ router.put('/:cid', async (req, res) => {
     }
 });
 
-// PUT /api/carts/:cid/products/:pid
 router.put('/:cid/products/:pid', async (req, res) => {
     const { cid, pid } = req.params;
     const { cantidad } = req.body;
@@ -50,7 +47,6 @@ router.put('/:cid/products/:pid', async (req, res) => {
     }
 });
 
-// DELETE /api/carts/:cid
 router.delete('/:cid', async (req, res) => {
     const { cid } = req.params;
     try {
